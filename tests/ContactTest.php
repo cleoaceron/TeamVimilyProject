@@ -65,6 +65,30 @@ class ContactTest extends TestCase
     }
 
     /**
+     * View Contact Test Case
+     *
+     * @return void
+     */
+    public function testViewContact() 
+    {
+        //Create contact factory
+        $contact = factory(\App\Models\Contact::class)->create();
+        
+        //200
+        $response = $this->get("admin/contact/view/{$contact->uuid}");
+        $response->assertResponseStatus(200);
+        $response->seeJsonStructure([
+            "message",
+            "model" => [
+                "uuid",
+                "fullname",
+                "mobile_number",
+                "email"
+            ]
+        ]);
+    }
+
+    /**
      * Get Contact Test Case
      *
      * @return void
