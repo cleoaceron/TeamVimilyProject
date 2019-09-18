@@ -35,4 +35,14 @@ class ContactService extends AbstractBaseService implements ContactInterface {
         return (new AddContact($this->request, $this->repository))->handle()->response();
     }
 
+    /**
+     * Delete Contact Service
+     *
+     * @param String $uuid
+     * @return response
+     */
+    public function deleteContact($uuid) 
+    {
+        return (new DeleteContact($uuid, $this->request, $this->repository))->handle()->response();
+    }
 }

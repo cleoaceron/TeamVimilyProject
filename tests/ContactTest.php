@@ -37,4 +37,30 @@ class ContactTest extends TestCase
         ]);
     }
 
+    /**
+     * Delete Contact Test Case
+     *
+     * @return void
+     */
+    public function testDeleteContact() 
+    {
+        //422
+        $response = $this->post("admin/contact/delete", []);
+        $response->assertResponseStatus(422);
+        $response->seeJsonStructure([
+            "uuid"
+        ]);
+
+        //Create contact factory
+        $contact = factory(\App\Models\Contact::class)->create();
+
+        //200
+        $response = $this->post("admin/contact/delete", [
+            "uuid" => $contact->uuid
+        ]);
+        $response->assertResponseStatus(200);
+        $response->seeJsonStructure([
+            'message'
+        ]);
+    }
 }

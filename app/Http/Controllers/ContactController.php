@@ -37,5 +37,24 @@ class ContactController extends Controller
                 'model' => $response->model
             ], $response->status);
     }
-    
+
+    /**
+     * Delete a contact.
+     *
+     * @return void
+     */
+    public function deleteContact(Request $request) 
+    {
+        $this->validate($request, [
+            "uuid" => "required|uuid",
+        ]);
+
+        $result = $this->service->deleteContact($request->get('uuid'));
+        
+        if ($result->status == 200) {
+            return response()->json([
+                        "message" => $result->message,
+            ]);
+        }
+    }
 }
