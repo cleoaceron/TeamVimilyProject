@@ -35,6 +35,7 @@ class UserTest extends TestCase
             "birthdate" => $user->birthdate,
             "gender" => $user->gender
         ]);
+        
         $response->assertResponseStatus(200);
         $response->seeJsonStructure([
             'message',

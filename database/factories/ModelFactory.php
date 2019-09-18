@@ -22,3 +22,12 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'gender' => $faker->randomElement(['Male', 'Female'])
     ];
 });
+
+$factory->define(App\Models\Contact::class, function (Faker\Generator $faker) {
+    return [
+    	'uuid' => $faker->uuid,
+        'fullname' => $faker->firstName,
+        'mobile_number' => $faker->e164PhoneNumber,
+        'email' => $faker->email
+    ];
+});

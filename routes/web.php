@@ -27,4 +27,13 @@ $router->group(["prefix" => "admin"], function() use ($router) {
 
 	});
 
+	$router->group(["prefix" => "contact"], function() use ($router) {
+
+		$router->post("add", ["as" => "admin.contact.add", "uses" => "ContactController@addContact"]);
+		$router->post("delete", ["as" => "admin.contact.delete", "uses" => "ContactController@deleteContact"]);
+		$router->get("view/{uuid}", ["as" => "admin.contact.view", "uses" => "ContactController@viewContact"]);
+		$router->post("list[/{page:\d+}]", ["as" => "admin.contact.list", "uses" => "ContactController@getContactList"]);
+
+	});
+
 });
