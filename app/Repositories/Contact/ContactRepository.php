@@ -28,10 +28,10 @@ class ContactRepository extends AbstractBaseRepository {
             $items = $items->where(function ($query) use ($request) {
             	foreach( $this->searchFields as $key => $field ){
             		if( $key == 0 ){
-            			$query->where('users.'.$field, 'like', '%' . $request['keyword'] . '%');
+            			$query->where('contacts.'.$field, 'like', '%' . $request['keyword'] . '%');
             		}
             		else{
-            			$query->orWhere('users.'.$field, 'like', '%' . $request['keyword'] . '%');
+            			$query->orWhere('contacts.'.$field, 'like', '%' . $request['keyword'] . '%');
             		}
             	}
             });

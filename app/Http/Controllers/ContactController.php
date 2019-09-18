@@ -57,4 +57,33 @@ class ContactController extends Controller
             ]);
         }
     }
+
+    /**
+     * Get contact list.
+     *
+     * @return void
+     */
+    public function getContactList(Request $request, $page = 1) 
+    {
+
+        $getList = $this->service->getContactList($request->toArray(), $page);
+
+        if ($getList->status == 200) {
+            return response()->json([
+                        "message" => $getList->message,
+                        "list" => $getList->list,
+                        "max_page" => $getList->max_page,
+                        "prev_page" => $getList->prev_page,
+                        "next_page" => $getList->next_page
+            ]);
+        }
+
+        return response()->json([
+                    "list" => null,
+                    "message" => $getList->message,
+                    "max_page" => null,
+                    "prev_page" => null,
+                    "next_page" => null
+                        ], $getList->status);
+    }
 }

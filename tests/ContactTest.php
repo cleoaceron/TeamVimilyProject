@@ -63,4 +63,39 @@ class ContactTest extends TestCase
             'message'
         ]);
     }
+
+    /**
+     * Get Contact Test Case
+     *
+     * @return void
+     */
+    public function testContactList() 
+    {
+
+        //Create contact factory
+        $contact = factory(\App\Models\Contact::class, 9)->create();
+        $contact = factory(\App\Models\Contact::class)->create([
+            'fullname' => 'John'
+        ]);
+
+        //list order
+        $response = $this->post("admin/contact/list", [
+            "keyword" => ""
+        ]);
+        $response->assertResponseStatus(200);
+        $response->seeJsonStructure([
+            "message",
+            "list" => [
+                "*" => [
+                    "uuid",
+                    "fullname",
+                    "mobile_number",
+                    "email"
+                ]
+            ],
+            "max_page",
+            "next_page",
+            "prev_page"
+        ]);
+    }
 }

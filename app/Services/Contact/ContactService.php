@@ -45,4 +45,23 @@ class ContactService extends AbstractBaseService implements ContactInterface {
     {
         return (new DeleteContact($uuid, $this->request, $this->repository))->handle()->response();
     }
+
+    /**
+     * Get Contact List Service
+     *
+     * @param String $uuid
+     * @return response
+     */
+    public function getContactList($request, $page) 
+    {
+        $list = $this->repository->paginate($request, static::PERPAGE, $page);
+        $this->response = $this->makeResponse(200, 'list_contact.200');
+        
+        $this->response->list = $list->list;
+        $this->response->max_page = $list->max_page;
+        $this->response->next_page = $list->next_page;
+        $this->response->prev_page = $list->prev_page;
+
+        return $this->response;
+    }
 }
