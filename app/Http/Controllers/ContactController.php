@@ -59,6 +59,29 @@ class ContactController extends Controller
     }
 
     /**
+     * View a contact.
+     *
+     * @return void
+     */
+    public function viewContact($uuid) 
+    {
+
+        $result = $this->service->viewContact($uuid);
+
+        if ($result->status == 200) {
+            return response()->json([
+                        "message" => $result->message,
+                        "model" => $result->model,
+            ]);
+        }
+
+        return response()->json([
+                    "model" => null,
+                    "message" => $result->message,
+                        ], $result->status);
+    }
+
+    /**
      * Get contact list.
      *
      * @return void

@@ -47,6 +47,21 @@ class ContactService extends AbstractBaseService implements ContactInterface {
     }
 
     /**
+     * View Contact Service
+     *
+     * @param String $uuid
+     * @return response
+     */
+    public function viewContact($uuid) 
+    {
+        $model = $this->repository->find('uuid', $uuid);
+        $this->response = $this->makeResponse(200, 'view_contact.200');
+
+        $this->response->model = $model;
+        return $this->response;
+    }
+
+    /**
      * Get Contact List Service
      *
      * @param String $uuid

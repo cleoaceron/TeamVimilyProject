@@ -9,4 +9,6 @@ interface ContactInterface {
     public function deleteContact($uuid);
 
     public function getContactList($request, $page);
+    
+    public function viewContact($uuid);
 }
