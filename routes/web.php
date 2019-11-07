@@ -14,3 +14,26 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->group(["prefix" => "admin"], function() use ($router) {
+
+	$router->group(["prefix" => "user"], function() use ($router) {
+
+		$router->post("add", ["as" => "admin.user.add", "uses" => "UserController@addUser"]);
+		$router->post("update/{uuid}", ["as" => "admin.user.update", "uses" => "UserController@updateUser"]);
+		$router->post("delete", ["as" => "admin.user.delete", "uses" => "UserController@deleteUser"]);
+		$router->get("view/{uuid}", ["as" => "admin.user.view", "uses" => "UserController@viewUser"]);
+		$router->post("list[/{page:\d+}]", ["as" => "admin.user.list", "uses" => "UserController@getUserList"]);
+
+	});
+
+	$router->group(["prefix" => "contact"], function() use ($router) {
+
+		$router->post("add", ["as" => "admin.contact.add", "uses" => "ContactController@addContact"]);
+		$router->post("delete", ["as" => "admin.contact.delete", "uses" => "ContactController@deleteContact"]);
+		$router->get("view/{uuid}", ["as" => "admin.contact.view", "uses" => "ContactController@viewContact"]);
+		$router->post("list[/{page:\d+}]", ["as" => "admin.contact.list", "uses" => "ContactController@getContactList"]);
+
+	});
+
+});
