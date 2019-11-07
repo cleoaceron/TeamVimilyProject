@@ -11,9 +11,23 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
+    	'uuid' => $faker->uuid,
+        'firstname' => $faker->firstName,
+        'lastname' => $faker->lastName,
+        'mobile_number' => $faker->e164PhoneNumber,
         'email' => $faker->email,
+        'birthdate' => $faker->date,
+        'gender' => $faker->randomElement(['Male', 'Female'])
+    ];
+});
+
+$factory->define(App\Models\Contact::class, function (Faker\Generator $faker) {
+    return [
+    	'uuid' => $faker->uuid,
+        'fullname' => $faker->firstName,
+        'mobile_number' => $faker->e164PhoneNumber,
+        'email' => $faker->email
     ];
 });
